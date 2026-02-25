@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { storeTask } from "./utilities/state/taskSlice.js";
+import {removeTask, storeTask} from "./utilities/state/taskSlice.js";
 
 const App = () => {
   const [task, setTask] = useState("");
@@ -43,10 +43,13 @@ const App = () => {
         </button>
       </div>
       <div>
-        {alreadyAddTask.length > 0 && alreadyAddTask.map((task) => (
-            <div key={task} className="m-4">
+        {alreadyAddTask.length > 0 &&
+          alreadyAddTask.map((task) => (
+            <div key={task.id} className="m-4">
               <p className="inline mr-4">{task.task}</p>
-              <button className="text-white bg-red-600 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+              <button
+                  onClick={() => dispatch(removeTask(task.id))}
+                  className="text-white bg-red-600 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
                 Remove
               </button>
             </div>
